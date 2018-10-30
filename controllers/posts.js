@@ -15,4 +15,15 @@ module.exports = app => {
         })
         console.log(req.body);
     });
+
+    app.get("/posts/:id", function(req, res) {
+        //Look up the post
+        Post.findById(req.params.id)
+            .then(post => {
+                res.render("post-show", { post });
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+    });
 };
