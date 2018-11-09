@@ -1,4 +1,4 @@
-var debug = true;
+// var debug = true;
 
 const mongoose = require("mongoose");
 const exphbs = require('express-handlebars');
@@ -30,18 +30,18 @@ app.get('/', (req, res) => {
         });
 })
 
-app.get('/post-new', (req, res) => {
+app.get('/posts/new', (req, res) => {
     res.render('post-new')
 })
 
-mongoose.Promise = global.Promise;
-mongoose.connect(
-    "mongodb://localhost/redditclone",
-    //useMongoClient is no longer required in mongo 5.x
-    // { useMongoClient: true }
-);
-mongoose.connection.on("error", console.error.bind(console, "MongoDB connection Error:"));
-mongoose.set('debug', true);
+app.get("/n/:subreddit", (req, res) => {
+    Post.find({ subreddit: req.params.subreddit })
+    .then(posts => {
+        res.render("posts-index", { posts });
+    }).catch(err => {
+        console.log(err);
+    })
+})
 
 
 //.engine sets the view engine and default layout goes along with app.set
