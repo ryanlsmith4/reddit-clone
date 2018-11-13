@@ -1,6 +1,9 @@
 // var debug = true;
-
+var cookieParser = require("cookie-parser");
+require('dotenv').config();
+const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt")
 const exphbs = require('express-handlebars');
 const express = require('express');
 const expressValidator = require('express-validator');
@@ -9,6 +12,7 @@ const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const Post = require('./models/post');
 
+app.use(cookieParser());
 // The bodyParser is used to parser the data entered on our front End
 //necessary with POST routes
 app.use(bodyParser.json());
