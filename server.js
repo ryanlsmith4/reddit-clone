@@ -51,9 +51,10 @@ app.engine('handlebars', exphbs({
 
 app.set('view engine', 'handlebars');
 // End template engine set up
-
+require('./controllers/auth.js')(app)
 require('./controllers/posts.js')(app);
 require('./data/reddit-clone-db');
+require('./controllers/comments-controllers.js')(app);
 
 
 

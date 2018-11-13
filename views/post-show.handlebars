@@ -6,9 +6,18 @@
         </div>
         <p>{{this.summary}}</p>
         <a href="{{this.url}}" target="_blank">{{this.url}}<a>
-                <a href="/n/{{this.subreddit}}"><div class="text-right">{{this.subreddit}}</div></a>
+                <a href="/n/{{this.subreddit}}">
+                    <div class="text-right">{{this.subreddit}}</div>
+                </a>
     </li>
 
-
-
+    <form action="/posts/{{this._id}}/comments" method="post">
+        <textarea class='form-control' name="content" placeholder="Comment"></textarea>
+        <div class="text-right">
+            <button type="submit">Save</button>
+        </div>
+    </form>
 {{/post}}
+{{#each post.comments}}
+    <p>{{this.content}}</p>
+{{/each}}
