@@ -1,5 +1,6 @@
 // var debug = true;
 var cookieParser = require("cookie-parser");
+//This defines proccess.env.SECRET
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
@@ -12,21 +13,48 @@ const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const Post = require('./models/post');
 
+var checkAuth = (req, res, next) => {
+    console.log("checking Authentication");
+    if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+        req.user = null;
+    } else {
+        var token = req.cookies.nToken;
+        var decodedToken = jwt.decode(token, { complete: true }) || {};
+        req.user = decodedToken.payload;
+    }
+    next();
+};
+
 app.use(cookieParser());
+
 // The bodyParser is used to parser the data entered on our front End
 //necessary with POST routes
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
 app.use(expressValidator()); // This comes after body parser initialization
 // End BodyParser set up
 
+
+app.use(checkAuth)
+
+//TODO: Fix profiles pages
+app.get('/user/profile', (req, res) => {
+    var currentUser = req.user
+    res.render('profile', { currentUser })
+})
+
+
 app.get('/', (req, res) => {
+var currentUser = req.user;
+
     Post.find({})
         .then(posts => {
             res.render("posts-index", {
-                posts
+                posts, currentUser
             });
         })
         .catch(err => {
@@ -34,14 +62,14 @@ app.get('/', (req, res) => {
         });
 })
 
-app.get('/posts/new', (req, res) => {
-    res.render('post-new')
-})
+
 
 app.get("/n/:subreddit", (req, res) => {
+    var currentUser = req.user;
+
     Post.find({ subreddit: req.params.subreddit })
     .then(posts => {
-        res.render("posts-index", { posts });
+        res.render("posts-index", { posts, currentUser });
     }).catch(err => {
         console.log(err);
     })

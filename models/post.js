@@ -8,7 +8,10 @@ const PostSchema = new Schema({
     url: { type: String, required: true },
     summary: { type: String, required: true },
     subreddit: { type: String, required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    //TODO: Display authors names not ID
+    author : { type: Schema.Types.ObjectId, ref: "User", required: true }
+
 });
 
 PostSchema.pre("save", function(next) {

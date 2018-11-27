@@ -1,5 +1,8 @@
-const jwt = require('jsonwebtoken');
-const User = require("../models/user");
+const Comment = require('../models/comment');
+const Post = require('../models/post')
+const User = require('../models/user')
+const jwt = require("jsonwebtoken");
+
 
 module.exports = (app) => {
     //signup
@@ -11,12 +14,12 @@ module.exports = (app) => {
     app.post("/sign-up", (req, res) => {
         // Create User
         const user = new User(req.body);
-        console.log(process.env.SECRET);
+        // console.log(process.env.SECRET);
         user
             .save()
             .then(user => {
                 var token = jwt.sign({
-                    _id: user._id
+                    _id: user._id,
                 }, process.env.SECRET, {
                     expiresIn: "60 days"
                 });
@@ -32,7 +35,7 @@ module.exports = (app) => {
             .catch(err => {
                 console.log(err.message);
                 return res.status(400).send({
-                    err: err
+                err: err
                 });
             });
     });
@@ -49,8 +52,8 @@ module.exports = (app) => {
 
     // LOGIN
     app.post("/login", (req, res) => {
-        const username = req.body.username;
-        const password = req.body.password;
+        const username = req.body.username
+        const password = req.body.password
         // Find this user name
         User.findOne({
                 username
