@@ -1,4 +1,4 @@
-{{#post}}
+{{#with post}}
     <li class="list-group-item">
         <div class="lead">
             <a href="/posts/{{this._id}}" class="lead">{{this.title}}</a>
@@ -10,7 +10,7 @@
                     <div class="text-right">{{this.subreddit}}</div>
                 </a>
                 <!-- Authors name should display not ID -->
-                {{this.author}}
+            <small> Posted By: {{this.author.username}} </small>
     </li>
 
 
@@ -22,10 +22,14 @@
     </form>
     <h3>Comments</h3>
     <hr>
-{{/post}}
-{{#each post.comments}}
+{{/with}}
+
+{{#each comments}}
 <!-- Authors name should display not ID -->
-<small class="text-left">Commented By: {{this.author}}</small>
+<small class="text-left">Commented By: {{ert}}</small>
     <p>{{this.content}}</p>
+    <!-- "/posts/:postId/comments/:commentId/replies/new" -->
+    <a href="/posts/{{@root.post._id}}/comments/{{this._id}}/replies/new">Reply</a>
+
     <hr>
 {{/each}}

@@ -13,6 +13,12 @@ const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const Post = require('./models/post');
 
+// ==========================================
+
+// Middleware
+
+// ==========================================
+
 var checkAuth = (req, res, next) => {
     console.log("checking Authentication");
     if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
@@ -27,21 +33,27 @@ var checkAuth = (req, res, next) => {
 
 app.use(cookieParser());
 
+// -------------------------------------------
+
 // The bodyParser is used to parser the data entered on our front End
 //necessary with POST routes
+
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use(expressValidator()); // This comes after body parser initialization
+// --------------------------------------------
+// This comes after body parser initialization
 // End BodyParser set up
+
+app.use(expressValidator());
 
 
 app.use(checkAuth)
 
-//TODO: Fix profiles pages
+// TODO: Fix profiles pages
 app.get('/user/profile', (req, res) => {
     var currentUser = req.user
     res.render('profile', { currentUser })
@@ -83,6 +95,7 @@ app.engine('handlebars', exphbs({
 
 app.set('view engine', 'handlebars');
 // End template engine set up
+require('./controllers/replies.js')(app)
 require('./controllers/auth.js')(app)
 require('./controllers/posts.js')(app);
 require('./data/reddit-clone-db');

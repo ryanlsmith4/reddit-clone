@@ -4,8 +4,7 @@ const Post = require('../models/post');
 const User = require('../models/user')
 
 
-module.exports = app => {
-
+module.exports = (app) => {
 
     app.get('/posts/new', (req, res, post) => {
         var currentUser = req.user;
@@ -13,7 +12,7 @@ module.exports = app => {
         res.render('post-new', { post, currentUser} )
     })
 
-
+// Post.findById(req.params.id).populate('comments')
 
     app.post("/posts/new", (req, res) => {
         var currentUser = req.user
@@ -50,16 +49,30 @@ module.exports = app => {
     //     console.log(req.body);
     // });
 
-    app.get("/posts/:id", function(req, res) {
+    app.get("/posts/:id", (req, res) => {
         var currentUser = req.user;
 
-        //Look up the post
-        Post.findById(req.params.id).populate('comments')
+        Post.findById(req.params.id).populate('author')
             .then(post => {
-                res.render("post-show", { post, currentUser });
-            })
-            .catch(err => {
+                console.log(post)
+                res.render("post-show", { postId: req.params.id, 'post': post, 'comments': post.comments, 'currentUser': currentUser });
+
+                // res.render("post-show", { postId: req.params.id, 'post': post, 'comments': post.comments, 'currentUser': currentUser });
+            }).catch(err => {
                 console.log(err.message);
-            });
-    });
+            })
+    })
+
+    // app.get("/posts/:id", (req, res) {
+    //     var currentUser = req.user;
+    //
+    //     //Look up the post
+    //     Post.findById(req.params.id).populate('comments')
+    //         .then(post => {
+    //             res.render("post-show", { post, currentUser });
+    //         })
+    //         .catch(err => {
+    //             console.log(err.message);
+    //         });
+    // });
 };
