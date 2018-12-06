@@ -1,19 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Comment = require("../models/comment.js");
 
 const PostSchema = new Schema({
-    createdAt: { type: Date },
-    updatedAt: { type: Date },
-    title: { type: String, required: true },
-    url: { type: String, required: true },
-    summary: { type: String, required: true },
-    subreddit: { type: String, required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    createdAt:  { type: Date },
+    updatedAt:  { type: Date },
+    title:      { type: String, required: true },
+    url:        { type: String, required: true },
+    summary:    { type: String, required: true },
+    subreddit:  { type: String, required: true },
+    comments:   [Comment.schema],
     //TODO: Display authors names not ID
-    author : { type: Schema.Types.ObjectId, ref: "User", required: true }
+    author :    { type: Schema.Types.ObjectId, ref: "User", required: true }
 
 });
-
+// This needs older function call because of the this.
 PostSchema.pre("save", function(next) {
     // Set the createdAt && updatedAt
     const now = new Date();

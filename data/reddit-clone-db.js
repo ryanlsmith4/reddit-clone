@@ -8,7 +8,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(
     url,
     { useNewUrlParser: true },
-    function(err, db) {
+    (err, db) => {
         assert.equal(null, err);
         console.log("connected successfully to database");
         // db.close(); turn on for testing
