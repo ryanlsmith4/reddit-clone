@@ -1,3 +1,6 @@
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const should = chai.should();
 const Post = require("../models/post");
 
 
@@ -16,11 +19,11 @@ describe("Posts", () => {
 
                 chai
                     .request("localhost:3000")
-                    .post("/posts")
+                    .post("/posts/new")
                     .send(post)
                     .then(res => {
                         Post.find(function(err, posts) {
-                            postCount.should.be.equal(posts.length - 1);
+                            postCount.should.be.equal(posts.length + 1);
                             res.should.have.status(200);
                             return done();
                         });

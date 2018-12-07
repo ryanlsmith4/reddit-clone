@@ -10,6 +10,9 @@ const PostSchema = new Schema({
     summary:    { type: String, required: true },
     subreddit:  { type: String, required: true },
     comments:   [Comment.schema],
+    upVotes :   [{ type: Schema.Types.ObjectId, ref: "User" }],
+    downVotes:  [{ type: Schema.Types.ObjectId, ref: "User" }],
+    voteScore:  { type: Number, default: 0 },
     //TODO: Display authors names not ID
     author :    { type: Schema.Types.ObjectId, ref: "User", required: true }
 

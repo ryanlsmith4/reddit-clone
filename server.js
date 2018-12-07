@@ -44,6 +44,8 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+app.use(express.static('public'))
+
 // --------------------------------------------
 // This comes after body parser initialization
 // End BodyParser set up

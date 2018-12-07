@@ -1,0 +1,33 @@
+<!-- <div class="col-xs-12 comment-indent">
+  <p>{{this.content}}</p>
+  {{#each this.comments}}
+  {{this.comment}}
+
+
+  {{/each }}
+</div> -->
+
+<ul>
+  <li class="comment">
+    <small class="post-meta">Posted by:{{this.authorName}}
+    </small>
+
+    <p>Content: {{this.content}} </p>
+    <p class="only-when-logged-in">
+     <!-- <a href="/posts/{{@root.post._id}}/comments/{{this._id}}/replies/new">Reply</a> -->
+      <a href="/posts/{{post._Id}}/comments/{{this._id}}/replies/new">Reply</a>
+    </p>
+     <!-- <a href="/posts/{{@root.post._id}}/comments/{{this._id}}/replies/new">Reply</a> -->
+
+    {{#each this.comments}}
+      {{> comment}}
+    {{/each}}
+  </li>
+</ul>
+
+
+<style media="screen">
+    .comment-indent {
+        margin-left: 10px;
+    }
+</style>

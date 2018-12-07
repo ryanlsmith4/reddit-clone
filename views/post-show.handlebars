@@ -10,7 +10,7 @@
                     <div class="text-right">{{this.subreddit}}</div>
                 </a>
                 <!-- Authors name should display not ID -->
-            <small> Posted By: {{this.author.username}} </small>
+                <small> Posted By: {{this.author.username}} </small>
     </li>
 
 
@@ -24,12 +24,9 @@
     <hr>
 {{/with}}
 
-{{#each comments}}
-<!-- Authors name should display not ID -->
-<small class="text-left">Commented By: {{ert}}</small>
-    <p>{{this.content}}</p>
-    <!-- "/posts/:postId/comments/:commentId/replies/new" -->
-    <a href="/posts/{{@root.post._id}}/comments/{{this._id}}/replies/new">Reply</a>
-
-    <hr>
-{{/each}}
+<div class="post-comments">
+  <!-- Use #each to display HTML or a partial for each item in an array -->
+  {{#each comments}}
+    {{> comment}}
+  {{/each}}
+</div>
