@@ -14,7 +14,7 @@ const PostSchema = new Schema({
     downVotes:  [{ type: Schema.Types.ObjectId, ref: "User" }],
     voteScore:  { type: Number, default: 0 },
     //TODO: Display authors names not ID
-    author :    { type: Schema.Types.ObjectId, ref: "User", required: true }
+    author :    { type: Schema.Types.ObjectId, ref: "User"}
 
 });
 // This needs older function call because of the this.
