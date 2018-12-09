@@ -1,27 +1,13 @@
-
-
-<ul>
-  <li class="comment">
-    <small class="post-meta">Posted by: {{this.comments.author}}
-    </small>
- <br>
-
-    <small> Comment:</small>{{this.comments.content}}
-    <p class="reply-button">
-     <!-- <a href="/posts/{{@root.post._id}}/comments/{{this._id}}/replies/new">Reply</a> -->
-      <a href="/posts/{{this._id}}/comments/{{this.comment.comments_id}}/replies/new">Reply</a>
-    </p>
-     <!-- <a href="/posts/{{@root.post._id}}/comments/{{this._id}}/replies/new">Reply</a> -->
-
-    {{#each this.comments}}
-      {{> comment}}
-    {{/each}}
-  </li>
-</ul>
-
-
 <style media="screen">
-    .comment-indent {
-        margin-left: 10px;
-    }
+.comment-indent {
+margin-left: 25px;
+}
 </style>
+<div class="col-xs-12 comment-indent">
+    <a href="/posts/{{this.postId}}/comments/{{this._id}}/replies/new">Reply</a>
+  <p>{{this.comments.content}}</p>
+  {{#each this.comments}}
+      <a href="/posts/{{this.postId}}/comments/{{this._id}}/replies/new">Reply</a>
+    {{> comment}}
+  {{/each }}
+</div>

@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Comment = require("../models/comment")
 
 const UserSchema = new Schema({
     createdAt: { type: Date },
@@ -9,12 +10,12 @@ const UserSchema = new Schema({
     username: { type: String, required: true },
     email: { type: String, required: true },
     posts : [{ type: Schema.Types.ObjectId, ref: "Post"}],
-    comments : [{ type: Schema.Types.ObjectId, ref: "Comment"}]
+    comments : [Comment.schema]
 
 });
 
 UserSchema.pre("save", function(next) {
-    //SET createdAt && updatedAt
+    //SET createdAt && updatedAtss
     const now = new Date();
     this.updatedAt = now;
     if (!this.createdAt) {

@@ -72,23 +72,39 @@ module.exports = (app) => {
         }
     })
 
+
+    // Getting individual posts
+        // app.get('/posts/:id', function (req, res) {
+        //     // Look up post, then render; if it doesn't work, error msg
+        //     let currentUser = req.user;
+        //     // Grab specific Post using url
+        //     Post.findById(req.params.id)
+        //     .then((post) => {
+        //         res.render('post-show', { post, currentUser })
+        //     }).catch((err) => {
+        //         res.send(err.message)
+        //     })
+        // })
+
     app.get("/posts/:id", (req, res) => {
         var currentUser = req.user;
 
-        Post.findById(req.params.id).populate('author').populate('comments')
+        Post.findById(req.params.id).populate('comments')
+
             .then(post => {
-                Comment.find({
-                    _id: {
-                        $in: post.comments
-                    }
-                }).populate('').then((comments) => {
+                var postId = post
+                console.log("This is what we printed" + postId);
+                console.log("DONE -------------------");
+                Comment.findById(req.params.id
+                ).then(comments => {
                     // console.log(post)
-                    console.log(comments);
+                    // console.log(comments);
                     res.render("post-show", {
                         postId: req.params.id,
                         'post': post,
                         'comments': comments,
                         'currentUser': currentUser
+
                     });
                 })
 

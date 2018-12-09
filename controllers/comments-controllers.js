@@ -8,19 +8,21 @@ module.exports = (app) => {
         app.post("/posts/:postId/comments", (req, res, post) => {
             var currentUser = req.user
             if (currentUser) {
-                console.log(currentUser);
                 // Find The parent Post
                 Post.findById(req.params.postId).exec((err, post) => {
                     // post.author = req.user._id;
+                    var postId = req.params.postId
+                    console.log("BOOOOOOM -----------" + postId);
 
                     // console.log(post.comments._id.author);
 
                     //unshift a new comment
                     let newComment = new Comment(req.body);
 
-                    newComment.author = currentUser.username
-                    newComment.content = req.body.content;
-                    newComment.postId = post._id;
+                    newComment.author = currentUser
+                    // newComment.postId = req.params.postId
+                    // newComment.content = req.body.content;
+                    newComment.postId = postId;
                     // newComment.author = currentUser.username;
                     newComment.save().then((comment) => {
                         post.comments.unshift(comment._id);
