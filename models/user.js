@@ -8,8 +8,8 @@ const UserSchema = new Schema({
     password: { type: String, select: false },
     username: { type: String, required: true },
     email: { type: String, required: true },
-    posts : [{ type: Schema.Types.ObjectId, ref: "Post" }],
-    comments : [{ type: Schema.Types.ObjectId, ref: "Comments"}]
+    posts : [{ type: Schema.Types.ObjectId, ref: "Post", required: true }],
+    comments : [{ type: Schema.Types.ObjectId, ref: "Comment", required: true}]
 
 });
 

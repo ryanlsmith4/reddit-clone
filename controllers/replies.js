@@ -39,7 +39,7 @@ module.exports = (app) => {
    const commentId = req.params.commentId;
 
    Post.findById(postId).then((post) => {
-     // console.log(">>> Found post:", post);
+     console.log(">>> Found post:", post);
      const findComment = (id, comments) => {
        if (comments.length > 0) {
          for (var index = 0; index < comments.length; index++) {

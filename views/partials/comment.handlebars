@@ -1,21 +1,15 @@
-<!-- <div class="col-xs-12 comment-indent">
-  <p>{{this.content}}</p>
-  {{#each this.comments}}
-  {{this.comment}}
 
-
-  {{/each }}
-</div> -->
 
 <ul>
   <li class="comment">
-    <small class="post-meta">Posted by:{{this.authorName}}
+    <small class="post-meta">Posted by: {{this.comments.author}}
     </small>
+ <br>
 
-    <p>Content: {{this.content}} </p>
-    <p class="only-when-logged-in">
+    <small> Comment:</small>{{this.comments.content}}
+    <p class="reply-button">
      <!-- <a href="/posts/{{@root.post._id}}/comments/{{this._id}}/replies/new">Reply</a> -->
-      <a href="/posts/{{post._Id}}/comments/{{this._id}}/replies/new">Reply</a>
+      <a href="/posts/{{this.postId}}/comments/{{this._id}}/replies/new">Reply</a>
     </p>
      <!-- <a href="/posts/{{@root.post._id}}/comments/{{this._id}}/replies/new">Reply</a> -->
 

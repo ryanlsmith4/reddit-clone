@@ -62,6 +62,7 @@ module.exports = (app) => {
                 .then(user => {
                     user.posts.unshift(post);
                     user.save();
+                    console.log("Here" + post);
 
                     res.redirect("/posts/" + post._id);
                 })
@@ -74,14 +75,15 @@ module.exports = (app) => {
     app.get("/posts/:id", (req, res) => {
         var currentUser = req.user;
 
-        Post.findById(req.params.id).populate('author')
+        Post.findById(req.params.id).populate('author').populate('comments')
             .then(post => {
                 Comment.find({
                     _id: {
                         $in: post.comments
                     }
-                }).then((comments) => {
-                    console.log(post)
+                }).populate('').then((comments) => {
+                    // console.log(post)
+                    console.log(comments);
                     res.render("post-show", {
                         postId: req.params.id,
                         'post': post,
