@@ -4,10 +4,14 @@ margin-left: 25px;
 }
 </style>
 <div class="col-xs-12 comment-indent">
-    <a href="/posts/{{this.postId}}/comments/{{this._id}}/replies/new">Reply</a>
-  <p>{{this.comments.content}}</p>
+  <p>{{this.content}}</p>
+
+  <small>{{this.author.username}}</small>
+
+  <a href="/posts/{{this.postId}}/comments/{{this._id}}/replies/new">Reply</a>
+  <hr>
+
   {{#each this.comments}}
-      <a href="/posts/{{this.postId}}/comments/{{this._id}}/replies/new">Reply</a>
     {{> comment}}
   {{/each }}
 </div>

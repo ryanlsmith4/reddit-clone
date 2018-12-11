@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Autopopulate = require('../utilities/autopopulate');
 const Schema = mongoose.Schema;
 const Comment = require("../models/comment.js");
 
@@ -16,7 +17,8 @@ const PostSchema = new Schema({
     //TODO: Display authors names not ID
     author :    { type: Schema.Types.ObjectId, ref: "User"}
 
-});
+}).pre('findOne', Autopopulate('comments'))
+	.pre('find', Autopopulate('comments'));
 // This needs older function call because of the this.
 PostSchema.pre("save", function(next) {
     // Set the createdAt && updatedAt
